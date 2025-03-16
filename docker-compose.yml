@@ -2,7 +2,10 @@ version: '3'
 services:
   gapps:
     container_name: gapps
-    image: bmarsh13/gapps:3.5.3
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: linux/arm64/v8
     depends_on:
       - postgres
     networks:
@@ -26,7 +29,10 @@ services:
       - GUNICORN_WORKERS=2
   gapps-worker:
     container_name: gapps-worker
-    image: bmarsh13/gapps:3.5.3
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: linux/arm64/v8
     depends_on:
       - postgres
     networks:
@@ -49,6 +55,7 @@ services:
   postgres:
     container_name: postgres
     image: postgres
+    platform: linux/arm64/v8
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-db1}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-db1}

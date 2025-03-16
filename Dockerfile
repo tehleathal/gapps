@@ -5,7 +5,7 @@
 # on python image
 
 #FROM python:3.8-slim-buster AS builder
-FROM ubuntu:20.04 AS builder
+FROM --platform=linux/arm64/v8 ubuntu:20.04 AS builder
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Builder stage dependencies aren't needed by the app at runtime
@@ -18,7 +18,7 @@ RUN pip install --upgrade pip setuptools wheel
 RUN pip install -r requirements.txt
 
 #FROM python:3.8-slim-buster AS app
-FROM ubuntu:20.04 AS app
+FROM --platform=linux/arm64/v8 ubuntu:20.04 AS app
 ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /app
